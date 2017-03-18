@@ -1,0 +1,14 @@
+# not required by setup.py..
+tox
+coverage
+django-coverage
+flake8
+factory_boy
+mock
+selenium
+
+django==1.9
+django-ckeditor==5.1.1
+
+lxml
+cssselect
