@@ -9,48 +9,7 @@ from django.core.urlresolvers import reverse_lazy
 
 DEBUG = True
 
-logging.getLogger("factory").setLevel(logging.WARN)
-
-# from selenium.webdriver.firefox import webdriver
-from selenium.webdriver.phantomjs import webdriver
-SELENIUM_WEBDRIVER = webdriver
-
-
-separate_users_MODEL = 'separate_users.tests.test_app.models.LinkModel'
-separate_users_IFRAME_URL = reverse_lazy('admin:test_app_linkmodel_add')
-separate_users_VERIFY_URL = reverse_lazy('admin:test_app_linkmodel_verify')
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'djangolinkIframeURL': separate_users_IFRAME_URL,
-        'djangolinkVerifyURL': separate_users_VERIFY_URL,
-        'linkShowAdvancedTab': False,
-        'extraPlugins': ','.join(
-            [
-                # your extra plugins here
-                'djangolink',
-                'autolink',
-                'autoembed',
-                'embedsemantic',
-                'autogrow',
-                'devtools',
-                'widget',
-                'lineutils',
-                'clipboard',
-                'dialog',
-                'dialogui',
-                'elementspath'
-            ]),
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Underline'],
-            ['DjangoLink', 'Unlink'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
-        ]
-    }
-}
+# logging.getLogger("factory").setLevel(logging.WARN)
 
 SITE_ID = 1
 
@@ -60,8 +19,12 @@ APP_ROOT = os.path.abspath(
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+        'NAME': 'test.db',
     }
+}
+
+MIGRATION_MODULES = {
+    'separate_users': 'separate_users.tests.test_app.migrations',
 }
 
 LANGUAGE_CODE = 'en'
@@ -93,7 +56,6 @@ COVERAGE_MODULE_EXCLUDES = [
 
 EXTERNAL_APPS = (
     'django.contrib.admin',
-    # 'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -101,11 +63,7 @@ EXTERNAL_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
-    'ckeditor',
-    # 'djangocms_text_ckeditor',
-    # 'cms',
-    # 'treebeard',
-    # 'menus',
+    'django_extensions',
 )
 
 TEMPLATES = [
