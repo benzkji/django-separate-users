@@ -18,14 +18,14 @@ In your settings, add to `INSTALLED_APPS`
         ...
     ]
 
-Also, you NEED to define a `MIGRATION_MODULES` entry for separate_users. As your UserModel might
+Also, you NEED to define a `MIGRATION_MODULES` entry for `separate_users`. As your UserModel might
 be different, we cannot guess the needed migrations, so you'll need to create them yourself.
 
     MIGRATION_MODULES = {
         'separate_users': 'your_apps.separate_users_migrations',
     }
 
-You'll need to create this folder, with an __init__.py, then you can run
+You'll need to create this folder, with an `__init__.py` in it, then you can run
 `./manage.py makemigrations` (try --dry-run to see if it works as you would expect).
 
 As of a django bug, you'll want to run `./manage.py fix_proxy_permissions`, otherwise your non
