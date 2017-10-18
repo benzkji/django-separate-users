@@ -7,6 +7,9 @@ from django.core.management.base import BaseCommand
 from django.apps import apps
 
 
+# where this comes from: https://gist.github.com/magopian/7543724#gistcomment-2185491
+# as django adds permissions for proxy models in another app for the proxies parent
+# also, epic: https://code.djangoproject.com/ticket/11154
 class Command(BaseCommand):
     help = "Fix permissions for proxy models."
 
