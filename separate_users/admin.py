@@ -15,7 +15,7 @@ from separate_users.models import FrontendUser, Editor
 class FrontendUserAdmin(UserAdmin):
     readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'groups', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]
-    list_display = ['username', 'is_active', ]
+    list_display = ['username', 'is_active', 'get_groups', ]
 
 
 admin.site.register(FrontendUser, FrontendUserAdmin)
@@ -25,7 +25,7 @@ class EditorAdmin(UserAdmin):
     exclude = []
     readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]
-    list_display = ['username', 'is_active', ]
+    list_display = ['username', 'is_active', 'get_groups', ]
 
 
 admin.site.register(Editor, EditorAdmin)

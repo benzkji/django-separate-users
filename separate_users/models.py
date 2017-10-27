@@ -38,7 +38,19 @@ class EditorManager(UserManager):
             .filter(is_staff=True, is_superuser=False)
 
 
-class FrontendUser(UserModel):
+class SeparateUserBase(object):
+
+    class Meta:
+        proxy = True
+
+    def get_groups(self):
+        print self.groups.all()
+        return ', '.join([str(item) for item in self.groups.all()])
+
+    get_groups.short_description = ("Groups")
+
+
+class FrontendUser(SeparateUserBase, UserModel):
 
     objects = FrontendUserManager()
 
@@ -46,11 +58,7 @@ class FrontendUser(UserModel):
         self.is_staff = False
         super(FrontendUser, self).save(*args, **kwargs)
 
-    class Meta:
-        proxy = True
-
-
-class Editor(UserModel):
+class Editor(SeparateUserBase, UserModel):
 
     objects = EditorManager()
 
