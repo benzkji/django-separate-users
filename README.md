@@ -7,7 +7,8 @@ solution, that I'll probably use in many projects from now on.
 - fieldsets for staff and non staff users can be defined via settings (not yet)
 - better admin list views (filters, is_active, etc)
 
-NOTE / WARNING: With django<1.11, it's not possible to run this app with as custom `settings.AUTH_USER_MODEL`. See
+NOTE / WARNING: With django<1.11, it's not possible to run this app with as custom
+`settings.AUTH_USER_MODEL`. See https://stackoverflow.com/questions/46935758/djangos-get-user-model-only-in-1-11-during-import-time
 
 
 ## Usage
