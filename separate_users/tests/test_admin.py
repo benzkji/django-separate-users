@@ -13,6 +13,7 @@ class AdminTestCase(TestCase):
     TODO: check with custom User Model!
     """
     def setUp(self):
+        self.auth_custom_user = 'test_app_custom_user.CustomUser'
         self.superuser = create_superuser()
         self.client.login(username='admin', password='secret')
         self.frontenduser = FrontendUser.objects.create(username='frontend')
@@ -33,16 +34,22 @@ class AdminTestCase(TestCase):
         self.changelist('editor')
 
     # @override_settings(
-    #     AUTH_USER_MODEL = 'test_app.CustomUser'
+    #     AUTH_USER_MODEL = 'test_app_custom_user.CustomUser'
     # )
     # def test_frontend_user_changelist_custom_user(self):
     #     self.changelist('frontenduser')
     #
     # @override_settings(
-    #     AUTH_USER_MODEL = 'test_app.CustomUser'
+    #     AUTH_USER_MODEL = 'test_app_custom_user.CustomUser'
     # )
     # def test_editor_changelist_custom_user(self):
-    #     self.changelist('editor')
+    #     with self.modify_settings(INSTALLED_APPS={
+    #         'append': 'test_app_custom_user',
+    #         'remove': [
+    #             'test_app',
+    #         ],
+    #     }):
+    #         self.changelist('editor')
 
     def change(self, user_version, id):
         url = reverse(
