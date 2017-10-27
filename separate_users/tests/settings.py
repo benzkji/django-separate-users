@@ -1,10 +1,6 @@
 """Settings that need to be set in order to run the tests."""
 import os
-import sys
 import tempfile
-import logging
-
-from django.core.urlresolvers import reverse_lazy
 
 
 DEBUG = True
@@ -43,10 +39,6 @@ STATICFILES_DIRS = (
     os.path.join(APP_ROOT, 'static'),
 )
 
-# TEMPLATE_DIRS = (
-#     os.path.join(APP_ROOT, 'tests/test_app/templates'),
-# )
-
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(
     os.path.join(APP_ROOT, 'tests/coverage'))
 COVERAGE_MODULE_EXCLUDES = [
@@ -63,7 +55,6 @@ EXTERNAL_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
-    'django_extensions',
 )
 
 TEMPLATES = [

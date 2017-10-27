@@ -1,10 +1,25 @@
 from django.conf import settings
 from django.contrib.auth.models import UserManager
-from django.db import models
+from django.core.exceptions import AppRegistryNotReady, ImproperlyConfigured
 from django.contrib.auth import get_user_model
 
 
-UserModel = get_user_model()
+try:
+    UserModel = get_user_model()
+except AppRegistryNotReady:
+    if not settings.AUTH_USER_MODEL == 'auth.User':
+        raise(ImproperlyConfigured(
+            'django-separate-users and django<1.11 wont work with custom user models!'
+        ))
+    from django.contrib.auth.models import User
+    UserModel = User
+
+
+if not getattr(settings, 'MIGRATION_MODULES', {}).get('separate_users', None):
+    raise (ImproperlyConfigured(
+        'django-separate-users needs an entry in settings.MIGRATION_MODULES["separate_users"]'
+        ' = "your_app", it will write migrations into a pip installed app, otherwise!'
+    ))
 
 
 class FrontendUserManager(UserManager):

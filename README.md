@@ -7,6 +7,8 @@ solution, that I'll probably use in many projects from now on.
 - fieldsets for staff and non staff users can be defined via settings (not yet)
 - better admin list views (filters, is_active, etc)
 
+NOTE / WARNING: With django<1.11, it's not possible to run this app with as custom `settings.AUTH_USER_MODEL`. See
+
 
 ## Usage
 
@@ -18,7 +20,7 @@ In your settings, add to `INSTALLED_APPS`
         ...
     ]
 
-Also, you NEED to define a `MIGRATION_MODULES` entry for `separate_users`. As your UserModel might
+Also, you NEED to define a `MIGRATION_MODULES` entry for `separate_users` (yes, a migration is created for proxy models!). As your UserModel might
 be different, we cannot guess the needed migrations, so you'll need to create them yourself.
 
     MIGRATION_MODULES = {
