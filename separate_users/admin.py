@@ -11,8 +11,20 @@ from separate_users.models import FrontendUser, Editor
 
 # admin.site.unregister(get_user_model())
 
+class SeparateUserAdminBase(UserAdmin):
 
-class FrontendUserAdmin(UserAdmin):
+    def get_urls(self):
+        model_name_lower = self.model.__name__.lower()
+        return [
+            url(
+                r'^(.+)/password/$',
+                self.admin_site.admin_view(self.user_change_password),
+                name='separate_users_{}_password_change'.format(model_name_lower),
+            ),
+        ] + super(SeparateUserAdminBase, self).get_urls()
+
+
+class FrontendUserAdmin(SeparateUserAdminBase):
     readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'groups', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]
     list_display = ['username', 'is_active', 'get_groups', ]
@@ -21,7 +33,7 @@ class FrontendUserAdmin(UserAdmin):
 admin.site.register(FrontendUser, FrontendUserAdmin)
 
 
-class EditorAdmin(UserAdmin):
+class EditorAdmin(SeparateUserAdminBase):
     exclude = []
     readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]

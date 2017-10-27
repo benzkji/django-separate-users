@@ -1,39 +1,73 @@
 # -*- coding: utf-8 -*-
-from time import sleep
-
-from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.test import override_settings
 from django.test.testcases import TestCase
+from django.urls import reverse
+
+from separate_users.models import Editor, FrontendUser
+from separate_users.tests.utils.django_utils import create_superuser
 
 
 class AdminTestCase(TestCase):
     """
-    test some basic admin views
-    make test generic,
+    check some basic admin views
+    TODO: check with custom User Model!
     """
-    username = 'admin'
-    password = 'admin'
-
     def setUp(self):
-        pass
+        self.superuser = create_superuser()
+        self.client.login(username='admin', password='secret')
+        self.frontenduser = FrontendUser.objects.create(username='frontend')
+        self.editor = Editor.objects.create(username='editor')
 
     def tearDown(self):
         pass
 
+    def changelist(self, user_version):
+        url = reverse('admin:separate_users_{}_changelist'.format(user_version))
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
+
     def test_frontend_user_changelist(self):
-        exit()
+        self.changelist('frontenduser')
 
-    def test_staff_user_changelist(self):
-        exit()
+    def test_editor_changelist(self):
+        self.changelist('editor')
 
-    def test_frontend_user_changeview(self):
-        exit()
+    # @override_settings(
+    #     AUTH_USER_MODEL = 'test_app.CustomUser'
+    # )
+    # def test_frontend_user_changelist_custom_user(self):
+    #     self.changelist('frontenduser')
+    #
+    # @override_settings(
+    #     AUTH_USER_MODEL = 'test_app.CustomUser'
+    # )
+    # def test_editor_changelist_custom_user(self):
+    #     self.changelist('editor')
 
-    def test_staff_user_changeview(self):
-        exit()
+    def change(self, user_version, id):
+        url = reverse(
+            'admin:separate_users_{}_change'.format(user_version),
+            args=[id]
+        )
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
 
-    def test_staff_user_passwordchange(self):
-        exit()
+    def test_change_frontenduser(self):
+        self.change('frontenduser', self.frontenduser.id)
 
-    def test_frontend_user_passwordchange(self):
-        exit()
+    def test_change_editor(self):
+        self.change('editor', self.editor.id)
+
+    def password_change(self, user_version, id):
+        url = reverse(
+            'admin:separate_users_{}_password_change'.format(user_version),
+            args=[id]
+        )
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_frontenduser_password_change(self):
+        self.password_change('frontenduser', self.frontenduser.id)
+
+    def test_editor_password_change(self):
+        self.password_change('editor', self.editor.id)

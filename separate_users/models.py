@@ -44,7 +44,6 @@ class SeparateUserBase(object):
         proxy = True
 
     def get_groups(self):
-        print self.groups.all()
         return ', '.join([str(item) for item in self.groups.all()])
 
     get_groups.short_description = ("Groups")

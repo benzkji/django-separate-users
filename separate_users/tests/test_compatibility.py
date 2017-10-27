@@ -19,10 +19,10 @@ class AdminTestCase(TestCase):
     def tearDown(self):
         pass
 
-    def test_frontend_user_changelist(self):
+    def test_improperly_pre_1_11_with_custom_user_model(self):
         exit()
 
-    def test_staff_user_changelist(self):
+    def test_improperly_no_migration_modules(self):
         exit()
 
     def test_frontend_user_changeview(self):

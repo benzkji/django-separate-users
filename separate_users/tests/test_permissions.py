@@ -6,26 +6,17 @@ from django.test import TestCase
 
 class PermissionsTestCase(TestCase):
     """
-    TODO: check for pre 1.11 ImproperlyConfigured etc.
-    TODO: check that MIGRATION_MODULES is configured (migration are written into this app!)
+    check if permissions are there, after management command was run.
+    check if not there initially - this will fail if django fixes the bug! nice to know.
     """
-    username = 'admin'
-    password = 'admin'
-
     def setUp(self):
         pass
 
     def tearDown(self):
         pass
 
-    def test_frontend_user_changelist(self):
+    def no_permissions_initially(self):
         exit()
 
-    def test_staff_user_changelist(self):
-        exit()
-
-    def test_frontend_user_changeview(self):
-        exit()
-
-    def test_staff_user_changeview(self):
+    def test_permission_management_command(self):
         exit()
