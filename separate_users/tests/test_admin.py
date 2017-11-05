@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.test import override_settings
+# from django.test import override_settings
 from django.test.testcases import TestCase
-from django.urls import reverse
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 from separate_users.models import Editor, FrontendUser
 from separate_users.tests.utils.django_utils import create_superuser
