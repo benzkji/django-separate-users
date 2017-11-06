@@ -1,3 +1,4 @@
+import inspect
 import sys
 
 from django.contrib.auth.management import _get_all_permissions
@@ -10,6 +11,7 @@ from django.apps import apps
 # where this comes from: https://gist.github.com/magopian/7543724#gistcomment-2185491
 # as django adds permissions for proxy models in another app for the proxies parent
 # also, epic: https://code.djangoproject.com/ticket/11154
+# also: https://stackoverflow.com/questions/38391729/how-to-retrieve-all-permissions-of-a-specific-model-in-django
 class Command(BaseCommand):
     help = "Fix permissions for proxy models."
 
@@ -21,7 +23,13 @@ class Command(BaseCommand):
                 app_label=opts.app_label,
                 model=opts.object_name.lower())
 
-            for codename, name in _get_all_permissions(opts):
+            argspecs = inspect.getargspec(_get_all_permissions)
+            if len(argspecs[0]) == 2:
+                # django < 1.10
+                all_permissions = _get_all_permissions(opts, ctype)
+            else:
+                all_permissions = _get_all_permissions(opts)
+            for codename, name in all_permissions:
                 sys.stdout.write('  --{}\n'.format(codename))
                 p, created = Permission.objects.get_or_create(
                     codename=codename,

@@ -57,6 +57,7 @@ class FrontendUser(SeparateUserBase, UserModel):
         self.is_staff = False
         super(FrontendUser, self).save(*args, **kwargs)
 
+
 class Editor(SeparateUserBase, UserModel):
 
     objects = EditorManager()
