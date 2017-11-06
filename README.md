@@ -1,5 +1,9 @@
 # django-separate-users
 
+[![Build Status](https://travis-ci.org/bnzk/django-separate-users.svg "Build Status")](https://travis-ci.org/bnzk/django-separate-users/)
+[![PyPi Version](https://img.shields.io/pypi/v/django-separate-users.svg "PyPi Version")](https://pypi.python.org/pypi/django-separate-users/)
+[![Licence](https://img.shields.io/pypi/l/django-separate-users.svg "Licence")](https://pypi.python.org/pypi/django-separate-users/)
+
 Separate staff and non staff users with two proxy models (FrontendUser and Editor).
 Nothing fancy, but as I ended up doing this again and again, this is a simple plug and forget
 solution, that I'll probably use in many projects from now on.
