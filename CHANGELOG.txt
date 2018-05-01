@@ -7,3 +7,5 @@
 ==== 0.0.1 ===
 
 - initial release
+- support for django 1.11+
+- support for custom user model still experimental, as nobody uses this, and it's hard to test.

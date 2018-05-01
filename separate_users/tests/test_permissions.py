@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import Permission
-from django.core.urlresolvers import reverse
-from django.test import Client
+# from django.test import Client
 from django.test import TestCase
+
+
+# compat
+import django
+if django.VERSION[:2] < (1, 10):
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
 
 
 class PermissionsTestCase(TestCase):
