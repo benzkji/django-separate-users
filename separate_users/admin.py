@@ -27,7 +27,7 @@ class SeparateUserAdminBase(UserAdmin):
 class FrontendUserAdmin(SeparateUserAdminBase):
     readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'groups', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]
-    list_display = ['username', 'is_active', 'get_groups', ]
+    list_display = ['username', 'get_complete_name', 'is_active', 'get_groups', ]
 
 
 admin.site.register(FrontendUser, FrontendUserAdmin)
@@ -37,7 +37,7 @@ class EditorAdmin(SeparateUserAdminBase):
     exclude = []
     readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]
-    list_display = ['username', 'is_active', 'get_groups', ]
+    list_display = ['username', 'get_complete_name', 'is_active', 'get_groups', ]
 
 
 admin.site.register(Editor, EditorAdmin)

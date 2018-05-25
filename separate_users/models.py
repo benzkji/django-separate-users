@@ -48,6 +48,11 @@ class SeparateUserBase(object):
 
     get_groups.short_description = ("Groups")
 
+    def get_complete_name(self):
+        return '{} {}'.format(self.first_name, self.last_name)
+
+    get_complete_name.short_description = ("Name")
+
 
 class FrontendUser(SeparateUserBase, UserModel):
 
