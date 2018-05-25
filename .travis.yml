@@ -1,0 +1,23 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+
+env:
+  matrix:
+    - DJANGO=1.7.8 DB=sqlite
+    - DJANGO=1.8.18 DB=sqlite
+    - DJANGO=1.9.5 DB=sqlite
+    - DJANGO=1.10.5 DB=sqlite
+    - DJANGO=1.11.3 DB=sqlite
+
+# command to install dependencies
+install:
+  - pip install .
+  - pip install -q Django==$DJANGO
+  - pip install -r test_requirements.txt
+
+# command to run tests
+script: python manage.py test

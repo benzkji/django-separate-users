@@ -1,19 +1,25 @@
 # django-separate-users
 
+[![Build Status](https://travis-ci.org/bnzk/django-separate-users.svg "Build Status")](https://travis-ci.org/bnzk/django-separate-users/)
+[![PyPi Version](https://img.shields.io/pypi/v/django-separate-users.svg "PyPi Version")](https://pypi.python.org/pypi/django-separate-users/)
+[![Licence](https://img.shields.io/pypi/l/django-separate-users.svg "Licence")](https://pypi.python.org/pypi/django-separate-users/)
+
 Separate staff and non staff users with two proxy models (FrontendUser and Editor).
 Nothing fancy, but as I ended up doing this again and again, this is a simple plug and forget
 solution, that I'll probably use in many projects from now on.
 
 - minimal requirement are the `is_staff` and `is_superuser` fields on your user model
 - staff users can be given the right to edit non staff users (currently not possible, or everyone can make everyone a superuser)
-- fieldsets for staff and non staff users can be defined via settings (not yet)
 - better admin list views (filters, is_active, etc)
 
 [//]: # (NOTE / WARNING: With django<1.11, it's not possible to run this app with as custom
 `settings.AUTH_USER_MODEL`. See https://stackoverflow.com/questions/46935758/djangos-get-user-model-only-in-1-11-during-import-time
 t)
 
-NOTE: Custom user models are not supported (yet).
+### TODO
+
+- custom user models support. if you could help, would be nice: #3
+- fieldsets for staff and non staff users can be defined via settings (not yet)
 
 ## Usage
 

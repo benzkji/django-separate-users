@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             },
             bases=('auth.user',),
             managers=[
-                (b'objects', separate_users.models.EditorManager()),
+                ('objects', separate_users.models.EditorManager()),
             ],
         ),
         migrations.CreateModel(
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
             },
             bases=('auth.user',),
             managers=[
-                (b'objects', separate_users.models.FrontendUserManager()),
+                ('objects', separate_users.models.FrontendUserManager()),
             ],
         ),
     ]
