@@ -25,9 +25,14 @@ class SeparateUserAdminBase(UserAdmin):
 
 
 class FrontendUserAdmin(SeparateUserAdminBase):
-    readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'groups', 'user_permissions', ]
+    readonly_fields = ['date_joined', 'last_login', 'is_superuser', 'groups', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]
     list_display = ['username', 'get_complete_name', 'is_active', 'get_groups', ]
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.has_perm('separate_users.change_editor'):
+            return self.readonly_fields + ['is_staff']
+        return self.readonly_fields
 
 
 admin.site.register(FrontendUser, FrontendUserAdmin)
@@ -35,7 +40,7 @@ admin.site.register(FrontendUser, FrontendUserAdmin)
 
 class EditorAdmin(SeparateUserAdminBase):
     exclude = []
-    readonly_fields = ['date_joined', 'last_login', 'is_staff', 'is_superuser', 'user_permissions', ]
+    readonly_fields = ['date_joined', 'last_login', 'is_superuser', 'user_permissions', ]
     list_filter = ['is_active', 'groups', ]
     list_display = ['username', 'get_complete_name', 'is_active', 'get_groups', ]
 

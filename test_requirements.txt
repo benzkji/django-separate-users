@@ -4,4 +4,4 @@ coverage
 django-coverage
 flake8
 
-django==1.11
+django<3

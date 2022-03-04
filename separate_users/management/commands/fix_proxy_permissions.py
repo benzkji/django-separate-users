@@ -13,7 +13,7 @@ from django.apps import apps
 # also, epic: https://code.djangoproject.com/ticket/11154
 # also: https://stackoverflow.com/questions/38391729/how-to-retrieve-all-permissions-of-a-specific-model-in-django
 class Command(BaseCommand):
-    help = "Fix permissions for proxy models."
+    help = "Fix permissions for proxy models. This has been fixed (and is no more needed) in at least django 3.0!"
 
     def handle(self, *args, **options):
         for model in apps.get_models():

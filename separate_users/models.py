@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.conf import settings
 from django.contrib.auth.models import UserManager
 from django.core.exceptions import AppRegistryNotReady, ImproperlyConfigured
@@ -61,7 +59,8 @@ class FrontendUser(SeparateUserBase, UserModel):
     objects = FrontendUserManager()
 
     def save(self, *args, **kwargs):
-        self.is_staff = False
+        if self._state.adding:
+            self.is_staff = False
         super(FrontendUser, self).save(*args, **kwargs)
 
 
@@ -70,7 +69,8 @@ class Editor(SeparateUserBase, UserModel):
     objects = EditorManager()
 
     def save(self, *args, **kwargs):
-        self.is_staff = True
+        if self._state.adding:
+            self.is_staff = True
         super(Editor, self).save(*args, **kwargs)
 
     class Meta:
