@@ -44,5 +44,9 @@ class EditorAdmin(SeparateUserAdminBase):
     list_filter = ['is_active', 'groups', ]
     list_display = ['username', 'get_complete_name', 'is_active', 'get_groups', ]
 
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.has_perm('separate_users.change_frontenduser'):
+            return self.readonly_fields + ['is_staff']
+        return self.readonly_fields
 
 admin.site.register(Editor, EditorAdmin)
