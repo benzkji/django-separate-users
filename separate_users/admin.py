@@ -1,10 +1,6 @@
-from django.conf import settings
-from django.conf.urls import url
+from django.urls import re_path
 from django.contrib import admin
-from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
-from django.db import models
-from django.http import JsonResponse
 
 from separate_users.models import FrontendUser, Editor
 
@@ -16,7 +12,7 @@ class SeparateUserAdminBase(UserAdmin):
     def get_urls(self):
         model_name_lower = self.model.__name__.lower()
         return [
-            url(
+            re_path(
                 r'^(.+)/password/$',
                 self.admin_site.admin_view(self.user_change_password),
                 name='separate_users_{}_password_change'.format(model_name_lower),
