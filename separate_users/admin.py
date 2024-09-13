@@ -72,6 +72,7 @@ class EditorAdmin(SeparateUserAdminBase):
 
 class NonSuperUserAdmin(SeparateUserAdminBase):
     readonly_fields = ['date_joined', 'last_login', 'user_permissions', 'is_superuser']
+    list_filter = ['is_active', "is_staff", HasPasswordFilter,  'groups', ]
 
 
 if conf.NON_SUPERUSER_MODE == True:
