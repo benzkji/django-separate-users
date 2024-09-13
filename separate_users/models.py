@@ -25,17 +25,19 @@ if not getattr(settings, 'MIGRATION_MODULES', {}).get('separate_users', None):
 class FrontendUserManager(UserManager):
 
     def get_queryset(self):
-        return super(FrontendUserManager, self)\
-            .get_queryset()\
-            .filter(is_staff=False, is_superuser=False)
+        return super().get_queryset().filter(is_staff=False, is_superuser=False)
 
 
 class EditorManager(UserManager):
 
     def get_queryset(self):
-        return super(EditorManager, self)\
-            .get_queryset()\
-            .filter(is_staff=True, is_superuser=False)
+        return super().get_queryset().filter(is_staff=True, is_superuser=False)
+
+
+class NonSuperUserManager(UserManager):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_superuser=False)
 
 
 class SeparateUserBase(object):
@@ -61,7 +63,7 @@ class FrontendUser(SeparateUserBase, UserModel):
     def save(self, *args, **kwargs):
         if self._state.adding:
             self.is_staff = False
-        super(FrontendUser, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class Editor(SeparateUserBase, UserModel):
@@ -71,7 +73,17 @@ class Editor(SeparateUserBase, UserModel):
     def save(self, *args, **kwargs):
         if self._state.adding:
             self.is_staff = True
-        super(Editor, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     class Meta:
         proxy = True
+
+
+class NonSuperUser(SeparateUserBase, UserModel):
+
+    objects = NonSuperUserManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = "User"
+        verbose_name_plural = "Users"
